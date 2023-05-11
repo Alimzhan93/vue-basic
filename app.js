@@ -1,54 +1,33 @@
-const App = {
+Vue.createApp({
   data() {
     return {
-      counter: 0,
-      title: "Счетчик",
-      list: "Список заметок",
-      placeholderString: "Введите название заметки",
-      inputValue: "",
-      notes: ["Заметка 1", "Заметка 2"],
+      myHtml: "<h1>Vue 3 App</h1>",
+      title: "название авто",
+      person: {
+        firstname: "Alimzhan",
+        lastNane: "Zhakashev",
+        age: 29,
+      },
+      items: [1, 2, 3, 4, 5, 6],
     };
   },
   methods: {
-    // Двухсторонняя связь
-    inputChangeHandler(event) {
-      this.inputValue = event.target.value;
+    addItem(event) {
+      this.items.unshift(this.$refs.myInput.value);
+      this.$refs.myInput.value = "";
+      console.log(event.key);
     },
-    // Добавление заметки
-    addNewNote() {
-      if (this.inputValue !== "") {
-        this.notes.push(this.inputValue);
-        this.inputValue = "";
-      }
+    remove(i) {
+      this.items.splice(i, 1);
     },
+    log(item) {
+      console.log("Log item: ", item);
+    },
+  },
 
-    toUpperCase(item) {
-      return item.toUpperCase();
-    },
-    // Удаление заметки
-    removeNote(index) {
-      this.notes.splice(index, 1);
-    },
-    // inputKeyPress(event) {
-    //   // Добавление заметки по нажатию Enter
-    //   console.log(event);
-    //   if (event.key === "Enter") {
-    //     this.addNewNote();
-    //   }
-    // },
-  },
   computed: {
-    doubleCountComputed() {
-      return this.notes.length * 2;
+    evenItems() {
+      return this.items.filter((i) => i % 2 === 0);
     },
   },
-  watch: {
-    inputValue(value) {
-      if (value.length > 10) {
-        this.inputValue = "";
-      }
-    },
-  },
-};
-const app = Vue.createApp(App);
-app.mount("#app");
+}).mount("#app");
