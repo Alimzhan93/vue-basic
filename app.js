@@ -10,6 +10,7 @@ const App = {
     };
   },
   methods: {
+    // Двухсторонняя связь
     inputChangeHandler(event) {
       this.inputValue = event.target.value;
     },
@@ -20,6 +21,7 @@ const App = {
         this.inputValue = "";
       }
     },
+
     toUpperCase(item) {
       return item.toUpperCase();
     },
@@ -29,10 +31,23 @@ const App = {
     },
     // inputKeyPress(event) {
     //   // Добавление заметки по нажатию Enter
+    //   console.log(event);
     //   if (event.key === "Enter") {
     //     this.addNewNote();
     //   }
     // },
+  },
+  computed: {
+    doubleCountComputed() {
+      return this.notes.length * 2;
+    },
+  },
+  watch: {
+    inputValue(value) {
+      if (value.length > 10) {
+        this.inputValue = "";
+      }
+    },
   },
 };
 const app = Vue.createApp(App);

@@ -19,7 +19,9 @@
       </div>
       <div class="container pt-5">
         <div class="card">
-          <h1>{{list}}</h1>
+          <h1 :style="{color: inputValue.length > 5 ? 'teal' :'red'}">
+            {{list}}
+          </h1>
           <div class="form-control">
             <input
               type="text"
@@ -33,13 +35,22 @@
           <hr />
           <ul class="list" v-if="notes.length !== 0">
             <li class="list-item" v-for="(note, index) in notes">
-              {{index +1}}. {{toUpperCase(note)}}
+              <span :class="note.length > 5 ? 'primary' : 'bold'"
+                >{{index +1}}. {{toUpperCase(note)}}</span
+              >
               <button class="btn danger" v-on:click="removeNote(index)">
                 Удалить
               </button>
             </li>
           </ul>
           <p v-else>Заметок нет. Добавте первую заметку</p>
+          <hr />
+          <li>
+            <strong
+              >Общее количество: {{notes.length}} | Удвоенное:
+              {{doubleCountComputed}}</strong
+            >
+          </li>
         </div>
       </div>
     </div>
